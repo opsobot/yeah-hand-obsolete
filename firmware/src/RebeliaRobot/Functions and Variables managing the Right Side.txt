@@ -1,8 +1,9 @@
 Functions and Variables managing the  Right Side
 ================================================
 
-getPosFromFactor() // UPDATED
-getFactorFromPos() // UPDATED
+getPosFromFactor() // NOT UPDATED
+getFactorFromPos() // NOT UPDATED
+setRangeByCurrentPos() // UPDATED
 
 calibrateHand () // UPDATED 
 
