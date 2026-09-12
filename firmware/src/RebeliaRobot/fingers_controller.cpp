@@ -752,8 +752,6 @@ void FingersController::setMaxTorque(const u8 IDN, u8 IDs[], const u16 MaxTorque
 
 void FingersController::setRangeByCurrentPos(u8 IDN, VectorIdx IDXs[], u8 rangeIndex) {
   for (u8 i = 0; i < IDN; i++) {
-    // MOTORS_POS_RANGE[IDXs[i]][rangeIndex] = readPos(getMotorIdByVectorIndex(IDXs[i]));
-    // SerialBT->printf("Set IDX %d POS: %d\n", IDXs[i], MOTORS_POS_RANGE[IDXs[i]][rangeIndex]);
     setRangeByCurrentPos(IDXs[i], rangeIndex);
   }
 }
