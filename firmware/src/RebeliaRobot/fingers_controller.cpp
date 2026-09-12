@@ -22,26 +22,12 @@ using namespace std::placeholders;
 FingersController::GraspType FingersController::getGraspTypeByString(const String& cmd) {
   if (cmd.substring(0, 5) == "POWER") {
     return FingersController::GraspType::POWER;
-  } else if (cmd.substring(0, 10) == "POWERSMALL") {
-    return FingersController::GraspType::POWERSMALL;
   } else if (cmd.substring(0, 9) == "POWERTOOL") {
     return FingersController::GraspType::POWERTOOL;
   } else if (cmd.substring(0, 6) == "MONKEY") {
     return FingersController::GraspType::MONKEY;
   } else if (cmd.substring(0, 5) == "PINCH") {
     return FingersController::GraspType::PINCH;
-  } else if (cmd.substring(0, 5) == "RELAX") {
-    return FingersController::GraspType::RELAX;
-  } else if (cmd.substring(0, 5) == "INDEX") {
-    return FingersController::GraspType::INDEX;
-  } else if (cmd.substring(0, 6) == "MIDDLE") {
-    return FingersController::GraspType::MIDDLE;
-  } else if (cmd.substring(0, 4) == "RING") {
-    return FingersController::GraspType::RING;
-  } else if (cmd.substring(0, 5) == "THUMB") {
-    return FingersController::GraspType::THUMB;
-  } else if (cmd.substring(0, 9) == "THUMB_ROT") {
-    return FingersController::GraspType::THUMB_ROT;
   }
 
   return FingersController::GraspType::_MAX;
@@ -55,9 +41,6 @@ String FingersController::getGraspStringByType(FingersController::GraspType type
     case FingersController::GraspType::POWER:
       text = "POWER\r\n";
       break;
-    case FingersController::GraspType::POWERSMALL:
-      text = "POWERSMALL\r\n";
-      break;
     case FingersController::GraspType::POWERTOOL:
       text = "POWERTOOL\r\n";
       break;
@@ -66,24 +49,6 @@ String FingersController::getGraspStringByType(FingersController::GraspType type
       break;
     case FingersController::GraspType::PINCH:
       text = "PINCH\r\n";
-      break;
-    case FingersController::GraspType::RELAX:
-      text = "RELAX\r\n";
-      break;
-    case FingersController::GraspType::INDEX:
-      text = "INDEX\r\n";
-      break;
-    case FingersController::GraspType::MIDDLE:
-      text = "MIDDLE\r\n";
-      break;
-    case FingersController::GraspType::RING:
-      text = "RING\r\n";
-      break;
-    case FingersController::GraspType::THUMB:
-      text = "THUMB\r\n";
-      break;
-    case FingersController::GraspType::THUMB_ROT:
-      text = "THUMB_ROT\r\n";
       break;
     case FingersController::GraspType::_MAX:
       text = "INVALID_COMMAND\r\n";
@@ -493,31 +458,7 @@ int FingersController::readCurrent(const u8 ID) {
 }
 
 void FingersController::action(const FingersController::GraspType grasp_type, const int factor) {
-  switch (grasp_type) {
-    case FingersController::GraspType::POWER:
-    case FingersController::GraspType::POWERSMALL:
-    case FingersController::GraspType::POWERTOOL:
-    case FingersController::GraspType::MONKEY:
-    case FingersController::GraspType::PINCH:
-    case FingersController::GraspType::RELAX:
-      grasp(grasp_type, factor);
-      break;
-    case FingersController::GraspType::INDEX:
-      moveUntilLoadLimitHit(factor, VectorIdx::Index, 2000, 200);
-      break;
-    case FingersController::GraspType::MIDDLE:
-      moveUntilLoadLimitHit(factor, VectorIdx::Middle, 2000, 200);
-      break;
-    case FingersController::GraspType::RING:
-      moveUntilLoadLimitHit(factor, VectorIdx::Ring, 2000, 200);
-      break;
-    case FingersController::GraspType::THUMB:
-      moveUntilLoadLimitHit(factor, VectorIdx::Thumb, 2000, 200);
-      break;
-    case FingersController::GraspType::THUMB_ROT:
-      moveUntilLoadLimitHit(factor, VectorIdx::ThumbRot, 2000, 200);
-      break;
-  }
+  grasp(grasp_type, factor);
 }
 
 void FingersController::pingTest(const u8 ID) {

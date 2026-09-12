@@ -63,17 +63,9 @@ public:
 
   enum GraspType {
     POWER = 0,
-    POWERSMALL,
+    POWERTOOL,
     MONKEY,
     PINCH,
-    RELAX,
-    POWERTOOL,
-    _FINGER_CTRL_SEPARATOR,
-    INDEX,
-    MIDDLE,
-    RING,
-    THUMB,
-    THUMB_ROT,
     _MAX
   };
 

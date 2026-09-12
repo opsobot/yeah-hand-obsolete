@@ -184,7 +184,7 @@ void processStringCmd(const String& cmd) {
 
 void prepareGrasp() {
 
-  if (g_grasp_type < FingersController::GraspType::_FINGER_CTRL_SEPARATOR) {
+  if (g_grasp_type < FingersController::GraspType::_MAX) {
     fc.prepareGrasp(g_grasp_type);
   }
   g_preparation = false;
