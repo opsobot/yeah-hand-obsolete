@@ -75,8 +75,8 @@ public:
   };
 
   enum HandSide {
-      LeftSide = 0,
-      RightSide = 1
+    LeftSide = 0,
+    RightSide = 1
   };
 
 public:
@@ -95,6 +95,19 @@ public:
   void setRangeByCurrentPos(u8 IDN, VectorIdx IDXs[], u8 rangeIndex);
   void setRangeByCurrentPos(VectorIdx IDX, u8 rangeIndex);
   void setPinchOffset(int offset);
+
+  // Serial
+  void waitKeyPress(String message) {
+
+    SerialBT->printf("Press any key to continue.. (%s)\n", message.c_str());
+
+    // Clear the serial buffer
+    while (SerialBT->available())
+      SerialBT->read();
+    // Wait for user input
+    while (!SerialBT->available())
+      ;
+  }
 
   // Conversion
   int getPosFromFactor(int finger_idx, int factor);
@@ -169,7 +182,7 @@ public:
   const int RANGE_MIN = 0;
   const int RANGE_MAX = 1;
   int MOTORS_POS_RANGE[5][2] = { { 2048, 2048 }, { 2048, 2048 }, { 2048, 2048 }, { 2048, 2048 }, { 2048, 2048 } };
-  int LS_MOTORS_POS_TENDON_INSTALLATION[4] = { 512, 512, 512, 512 };  
+  int LS_MOTORS_POS_TENDON_INSTALLATION[4] = { 512, 512, 512, 512 };
   int RS_MOTORS_POS_TENDON_INSTALLATION[4] = { 3583, 3583, 3583, 3583 };
 
   // Positions
@@ -192,7 +205,7 @@ public:
   };
 
   int PINCH_FRAMES = 5;
-  int PINCH_GRASP_THUMB_ROTATION = 70;
+  int PINCH_GRASP_THUMB_ROTATION = 80;
   int PINCH_GRASP_THUMB_FLEXION = 45;
   int PINCH_MATRIX[7][ANY_MATRIX_COLS] = {
     { 0, 0, 0, PINCH_GRASP_THUMB_FLEXION, PINCH_GRASP_THUMB_ROTATION, 0 },  //60 safepinch
@@ -207,10 +220,10 @@ public:
   // Safety
 private:
   SafetyLimits limits{
-    .MAX_LOAD = 600,      // * 0.02 kg·cm = 12 kg·cm
-    .OVER_CURRENT = 150,  // * 6.5 mA = 900 mA
-    .OVER_LOAD = 600,     // * 0.02 kg·cm = 12 kg·cm
-    .OVER_TEMP = 60       // * 1 °C = 60 °C
+    .MAX_LOAD = 600,      // * 0.02 kg·cm * 600 = 12 kg·cm
+    .OVER_CURRENT = 150,  // * 6.5 mA * 150 = 975 mA
+    .OVER_LOAD = 600,     // * 0.02 kg·cm * 600 = 12 kg·cm
+    .OVER_TEMP = 60       // * 1 °C * 60 = 60 °C
   };
 
   int lastValidTemp[SERVOS_SIZE];
@@ -219,11 +232,10 @@ public:
   void safetyFeature();
 
 private:
-  SMS_STS st; 
+  SMS_STS st;
   BluetoothSerial* SerialBT;
 
 private:
   // ** !! SET THE HAND SIDE BEFORE PROGRAMMING !! **
-  const HandSide hand_side = HandSide::LeftSide; 
-
+  const HandSide hand_side = HandSide::RightSide;
 };
