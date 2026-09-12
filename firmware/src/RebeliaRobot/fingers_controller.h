@@ -121,9 +121,9 @@ public:
   // ROS feedback
   void readFactors(u8 factors[5]);
   void readFeedback(u8 IDN, u8 IDs[], s16 load[], u8 voltage[],
-                  u8 temperature[], s16 current[]);
+                    u8 temperature[], s16 current[]);
   void readFeedback(s16 load[5], u8 voltage[5],
-                  u8 temperature[5], s16 current[5]);
+                    u8 temperature[5], s16 current[5]);
 
   // Print
   void printFeedback(const int id);
