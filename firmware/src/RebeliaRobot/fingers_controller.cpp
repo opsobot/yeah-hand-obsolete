@@ -100,8 +100,8 @@ void FingersController::setCenterOfRange(int motor_id) {
 }
 
 void FingersController::setPinchOffset(int offset) {
-  if (abs(offset) > 20) {
-    SerialBT->println("Please set a value between -20 and 20\n");
+  if (abs(offset) > 40) {
+    SerialBT->println("Please set a value between -40 and 40\n");
     return;
   }
   for (int i = 0; i < PINCH_FRAMES; i++) {
